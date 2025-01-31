@@ -38,4 +38,4 @@ The API is deployed at: [Your deployed URL]
 
 ## Author
 
-##Uche Hart
+#Uche Hart
