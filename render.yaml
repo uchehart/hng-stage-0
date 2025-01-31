@@ -2,14 +2,10 @@ services:
   - type: web
     name: hng-stage0-api
     runtime: docker
-    branch: main
-    healthCheckPath: /api/health
-    env: docker
     plan: free
+    healthCheckPath: /api/info
     envVars:
-      - key: APP_ENV
-        value: production
-      - key: APP_DEBUG
-        value: false
       - key: APP_KEY
         generateValue: true
+      - key: APP_ENV
+        value: production

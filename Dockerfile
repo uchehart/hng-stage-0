@@ -1,42 +1,3 @@
-# FROM php:8.2-fpm-alpine
-
-# WORKDIR /var/www/html
-
-# # Install system dependencies
-# RUN apk add --no-cache \
-#     nginx \
-#     supervisor \
-#     git \
-#     curl \
-#     libpng-dev \
-#     libxml2-dev \
-#     zip \
-#     unzip \
-#     npm
-
-# # Install PHP extensions
-# RUN docker-php-ext-install pdo pdo_mysql gd
-
-# # Install Composer
-# COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# # Copy application files
-# COPY . .
-
-# # Install PHP dependencies
-# RUN composer install --no-interaction --no-dev --optimize-autoloader
-
-# # Install NPM dependencies
-# RUN npm install && npm run build
-
-# # Expose port
-# EXPOSE 80
-
-# # Start PHP-FPM
-# CMD ["php-fpm"]
-
-
-
 FROM php:8.2-fpm-alpine
 
 WORKDIR /var/www/html
@@ -50,11 +11,10 @@ RUN apk add --no-cache \
     libpng-dev \
     libxml2-dev \
     zip \
-    unzip \
-    npm
+    unzip
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql gd
+RUN docker-php-ext-install pdo pdo_mysql
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -62,15 +22,22 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy application files
 COPY . .
 
-# Install PHP dependencies
+# Install dependencies
 RUN composer install --no-interaction --no-dev --optimize-autoloader
 
-# Install NPM dependencies
-RUN npm install && npm run build
+# Configure nginx
+RUN mkdir -p /run/nginx
+COPY docker/nginx.conf /etc/nginx/nginx.conf
 
-# Expose the correct port for Render
-EXPOSE 10000
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Start Nginx and PHP-FPM
-CMD ["sh", "-c", "nginx && php-fpm"]
+# Create start script
+RUN echo '#!/bin/sh' > /start.sh && \
+    echo 'nginx' >> /start.sh && \
+    echo 'php-fpm' >> /start.sh && \
+    chmod +x /start.sh
 
+EXPOSE 80
+
+CMD ["/start.sh"]
