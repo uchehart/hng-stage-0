@@ -39,3 +39,5 @@ The API is deployed at: [Your deployed URL]
 ## Author
 
 ## Uche Hart
+
+# Hire a php dev [here](https://hng.tech/hire/php-developers)
