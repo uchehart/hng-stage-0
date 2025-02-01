@@ -4,7 +4,8 @@ A simple REST API that returns basic information including email, current dateti
 
 ## API Endpoint
 
--   **URL**: `https://your-api-url.com/api/info`
+-   **URL**: `https://hng-stage-0-4raj.onrender.com/api/info`
+    `
 -   **Method**: GET
 -   **Response Format**: JSON
 
@@ -28,7 +29,7 @@ A simple REST API that returns basic information including email, current dateti
 
 ## Deployment
 
-The API is deployed at: https://hng-stage-0-4raj.onrender.com/api/info
+The API is deployed at: render.com
 
 ## Technologies Used
 
