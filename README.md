@@ -28,7 +28,7 @@ A simple REST API that returns basic information including email, current dateti
 
 ## Deployment
 
-The API is deployed at: [Your deployed URL]
+The API is deployed at: https://hng-stage-0-4raj.onrender.com/api/info
 
 ## Technologies Used
 
